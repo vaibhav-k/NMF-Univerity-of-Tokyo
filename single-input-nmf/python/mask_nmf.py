@@ -13,7 +13,7 @@ if len(sys.argv) > 1:
 	K = int(sys.argv[1])
 	print ("K =  %d" % K)
 
-Xori = pd.read_csv(r'C:/Users/Vaibhav/Downloads/portal-Avana-2018-06-08.csv', header=0, index_col=0, na_values='NaN')
+Xori = pd.read_csv(r'C:/Users/Vaibhav/nmf/inputs/portal-Avana-2018-06-08.csv', header=0, index_col=0, na_values='NaN')
 X = Xori[Xori.notnull().any(axis=1)]
 mX = 1 - X.isnull()
 X = X.fillna(0)

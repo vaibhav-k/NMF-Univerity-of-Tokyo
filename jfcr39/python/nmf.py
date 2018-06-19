@@ -11,13 +11,13 @@ pca = sklearnPCA(n_components=2)
 from fn_nmf import *
 from fn_reorder import *
 
-X = pd.read_csv(r'C:\Users\Vaibhav\NMF\vaibhav_NMF\FinalNMF\input/input_small_data_DRUG.zero-one.csv', index_col=0, na_values='NaN')
+X = pd.read_csv(r'C:/Users/Vaibhav/nmf/inputs/input_small_data_DRUG.zero-one.csv', index_col=0, na_values='NaN')
 X = X.fillna(0)
 
-Y = pd.read_csv(r'C:\Users\Vaibhav\NMF\vaibhav_NMF\FinalNMF\input/input_small_data_MUT.zero-one.csv', index_col=0, na_values='NaN')
+Y = pd.read_csv(r'C:/Users/Vaibhav/nmf/inputs/input_small_data_MUT.zero-one.csv', index_col=0, na_values='NaN')
 Y = Y.fillna(0)
 
-Z = pd.read_csv(r'C:\Users\Vaibhav\NMF\vaibhav_NMF\FinalNMF\input/input_small_data_PROT.zero-one.csv', index_col=0, na_values='NaN', encoding="ISO-8859-1")
+Z = pd.read_csv(r'C:/Users/Vaibhav/nmf/inputs/input_small_data_PROT.zero-one.csv', index_col=0, na_values='NaN', encoding="ISO-8859-1")
 Z = Z.fillna(0)
 
 '''

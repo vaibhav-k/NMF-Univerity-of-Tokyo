@@ -6,7 +6,7 @@ import sys
 
 from fn_dm-nmf import *
 
-X = pd.read_csv(r'C:/Users/Vaibhav/nmf/projects/depmap/input/portal-Avana-2018-06-08.csv', index_col=0, na_values='NaN')
+X = pd.read_csv(r'C:/Users/Vaibhav/nmf/inputs/portal-Avana-2018-06-08.csv', index_col=0, na_values='NaN')
 mX = 1 - X.isnull()
 
 maxit = 100

@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from fn_nmfs import *
 from fn_consensus import *
 
-X = pd.read_csv(r'C:/Users/Vaibhav/nmf/projects/sparse-nmf/input/input_CCLE_drug_IC50_zero-one.csv', index_col=0, header=0, na_values='NaN')
+X = pd.read_csv(r'C:/Users/Vaibhav/nmf/inputs/input_CCLE_drug_IC50_zero-one.csv', index_col=0, header=0, na_values='NaN')
 X = X.fillna(0)
 
 rank = 3

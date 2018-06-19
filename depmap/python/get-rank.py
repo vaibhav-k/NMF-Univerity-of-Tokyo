@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from fn_consensus import *
 from fn_nmf import *
 
-X = pd.read_csv(r'C:/Users/Vaibhav/nmf/projects/depmap/input/portal-Avana-2018-06-08-n.csv', index_col=0, header=0, na_values='NaN')
+X = pd.read_csv(r'C:/Users/Vaibhav/nmf/inputs/portal-Avana-2018-06-08-n.csv', index_col=0, header=0, na_values='NaN')
 #X = pd.read_csv(r'C:\Users\Vaibhav\nmf\projects\jfcr39\input/input_small_data_DRUG.zero-one.csv', index_col=0, header=0, na_values='NaN')
 X = X.fillna(0)
 mX = 1 - X.isnull()

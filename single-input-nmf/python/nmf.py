@@ -15,7 +15,7 @@ if len(sys.argv) > 1:
 	print ("K =  %d" % K)
 
 V=nimfa.examples.all_aml.read()
-Xori = pd.read_csv(r'C:\Users\Vaibhav\NMF\vaibhav_NMF\Single_Input_NMF\input/input_CCLE_drug_IC50_zero-one.csv', header=0, index_col=0, na_values='NaN')
+Xori = pd.read_csv(r'C:/Users/Vaibhav/nmf/inputs/input_CCLE_drug_IC50_zero-one.csv', header=0, index_col=0, na_values='NaN')
 X = Xori[Xori.notnull().any(axis=1)]
 X = X.fillna(0)
 
