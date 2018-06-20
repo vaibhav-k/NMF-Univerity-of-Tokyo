@@ -18,7 +18,7 @@ class NMF():
 		self.eps = np.finfo(self.W.values.dtype).eps
 
 		self.update()
-		self.err = self.totalerror/self.iter
+		self.err = self.toterr/self.maxit
 
 	def update(self):
 		for i in range(self.maxit):
