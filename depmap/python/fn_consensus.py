@@ -5,7 +5,7 @@ from scipy.cluster.hierarchy import linkage, leaves_list
 from scipy.spatial.distance import squareform
 
 
-class ConsensusMatrix(object):
+class CMatrix(object):
 	def __init__(self, X1):
 		self.cmW = pd.DataFrame(np.zeros((X1.shape[0], X1.shape[0])))
 		self.cmH = pd.DataFrame(np.zeros((X1.shape[1], X1.shape[1])))

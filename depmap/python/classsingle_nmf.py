@@ -27,7 +27,7 @@ class JointNMF_mask(object):
         
         
     def initialize_W_H(self):
-        self.W = pd.DataFrame(np.random.rand(self.X1.shape[0], self.rank), index = self.X1.shape[0], columns = map(str, range(1, self.rank+1)))
+        self.W = pd.DataFrame(np.random.rand(self.X1.shape[0], self.rank), index = list(self.X1.index), columns = map(str, range(1, self.rank+1)))
         self.H1 = pd.DataFrame(np.random.rand(self.rank, self.X1.shape[1]), index = map(str, range(1, self.rank+1)), columns = self.X1.columns)
         self.X1r_pre = np.dot(self.W, self.H1)
         self.eps = np.finfo(self.W.as_matrix().dtype).eps

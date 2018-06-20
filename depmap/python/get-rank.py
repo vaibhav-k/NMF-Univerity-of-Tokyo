@@ -1,33 +1,22 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-
 from fn_consensus import *
 from fn_nmf import *
 
 X = pd.read_csv(r'C:/Users/Vaibhav/nmf/inputs/portal-Avana-2018-06-08-n.csv', index_col=0, header=0, na_values='NaN')
-#X = pd.read_csv(r'C:\Users\Vaibhav\nmf\projects\jfcr39\input/input_small_data_DRUG.zero-one.csv', index_col=0, header=0, na_values='NaN')
 X = X.fillna(0)
 mX = 1 - X.isnull()
 
 maxit = 1
 runs = 1
 
-for rank in range (2,31):
-	cmatrix = ConsensusMatrix(X)
+for rank in range (3,31):
+	cmatrix = CMatrix(X)
 
 	error = 0
 
 	for run in range(runs):
-		'''
-		jnmf = JointNMF_mask(X, mX, rank, maxit)
-		jnmf.check_nonnegativity()
-		jnmf.initialize_W_H()
-		#jnmf.update_euclidean_multiplicative()
-		jnmf.wrapper_calc_euclidean_multiplicative_update()
-		jnmf.print_distance_of_HW_to_X(i)
-		#error += nmf.toterr
-		'''
 		jnmf = NMF(X, mX, rank, maxit)
 		error += jnmf.err
 		connW = cmatrix.calcConnectivityW(jnmf.W)
@@ -35,8 +24,6 @@ for rank in range (2,31):
 		cmatrix.addConnectivityMatrixtoConsensusMatrix(connW, connH)
 	
 	print("Error for rank %d is %f" % (rank, error))
-	#error /= runs
-	#print("Error for rank %d is %f" % (rank, error))
 
 	cmatrix.finalizeConsensusMatrix()
 
@@ -54,5 +41,9 @@ for rank in range (2,31):
 	plt.colorbar()
 
 	plt.suptitle("Consensus matrices for rank = %d" % (rank), size=16)
-
-	plt.show()
+	savedir = '../consensus-matrices'
+	if not os.path.exists(savedir):
+		os.mkdir(savedir)
+	plt.savefig(savedir + "/k = %d" % (rank))
+	plt.clf()
+	#plt.show()

@@ -8,7 +8,7 @@ from fn_consensus import *
 X = pd.read_csv(r'C:/Users/Vaibhav/nmf/inputs/portal-Avana-2018-06-08-n.csv', index_col=0, header=0)
 X = X.fillna(0)
 
-iterations = 100
+iterations = 5
 
 beta = 3
 sparsity = 10
@@ -42,4 +42,8 @@ for rank in range (3,31):
 	plt.title('Consensus matrix for H')
 	plt.colorbar()
 	#plt.show()
-	plt.savefig("C:/Users/Vaibhav/nmf/depmap-sparse/consensus-matrices/k = %d, beta= %d" % (rank, beta))
+	savedir = '../consensus-matrices'
+	if not os.path.exists(savedir):
+		os.mkdir(savedir)
+	plt.savefig(savedir + "/k = %d, beta= %d" % (rank, beta))
+	plt.clf()
