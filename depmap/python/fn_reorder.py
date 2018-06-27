@@ -9,13 +9,12 @@ def reorderMatrixH(X):
 
 def clusterH(X):
 	a = X
-	a = (a == a.max(axis=0)[None,:]).astype(int)
+	a = (a == a.max()).astype(int)
 	return a
 
 def getTogetherH(X):
 	X = np.transpose(X)
-	for i in range(X.shape[1]):
-		X = sorted(X, key=itemgetter(i))
+	X = X.sort_values(by=list(X))
 	return np.transpose(X)
 
 def reorderMatrixW(X):
@@ -25,10 +24,9 @@ def reorderMatrixW(X):
 
 def clusterW(X):
 	a = X
-	a = (a == a.max(axis=1)[:,None]).astype(int)
+	a = pd.DataFrame(a.values == a.max(axis=1)[:, None], dtype=int, index=list(X.index))
 	return a
 
 def getTogetherW(X):
-	for i in range(X.shape[1]):
-		X = sorted(X, key=itemgetter(i))
+	X = X.sort_values(by=list(X))
 	return X

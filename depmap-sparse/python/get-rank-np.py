@@ -3,14 +3,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-from fn_SparseNMF import *
+from fn_SparseNMF_np import *
 from fn_consensus import *
 
-X = pd.read_csv(r'../../inputs/portal-Avana-2018-06-08-n.csv', index_col=0, header=0, na_values='NaN')
-X = X.fillna(0)
+Y = pd.read_csv(r'../../inputs/portal-Avana-2018-06-08-n.csv', index_col=0, header=0, na_values='NaN')
+Y = Y.fillna(0)
 
-iterations = 100
-trials = 5
+X = Y.values
+
+iterations = 3
+trials = 2
 
 print("\nNumber of trials = %i" % trials)
 print("Number of iterations in each trial = %i\n" % iterations)
@@ -64,5 +66,5 @@ for rank in range (3,31):
 
 	print("\nSaving plots\n")
 
-	plt.savefig(savedir + "/k = %d, beta= %d" % (rank, beta))
+	plt.savefig(savedir + "/k = %d, beta= %d, np" % (rank, beta))
 	plt.clf()

@@ -3,66 +3,64 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-from fn_SparseNMF import *
+from fn_NMF_nm import *
 from fn_consensus import *
 
 X = pd.read_csv(r'../../inputs/portal-Avana-2018-06-08-n.csv', index_col=0, header=0, na_values='NaN')
 X = X.fillna(0)
 
-iterations = 100
-trials = 5
+iterations = 10000
+trials = 50
 
 print("\nNumber of trials = %i" % trials)
 print("Number of iterations in each trial = %i\n" % iterations)
 
-beta = 3
-sparsity = 5
+for rank in range (3,4):
+	cmatrix = CMatrix(X)
 
-for rank in range (3,31):
 	error = 0
 
-	consMat = ConsensusMatrix(X)
-
-	print("Running Sparse NMF for rank = %i" % rank)
+	print("Running NMF for rank = %i\n" % rank)
 
 	for run in range(trials):
 		print("\nTrial = %i for rank = %i\n" % (run, rank))
-		nmf = SparseNMF(X, rank, iterations, beta, sparsity)
+		nmf = NMF(X, rank, iterations)
 		nmf.runNMF()
-		error += nmf.error
-		print("\nCalculating connectivity matrix W")
-		connW = consMat.calcConnMatW(nmf.W)
-		print("Calculating connectivity matrix H")
-		connH = consMat.calcConnMatH(nmf.H)
-		print("\nAdding connectivity matrix")
-		consMat.calcConsMat(connW, connH)
-
+		error += nmf.err
+		print("\nCalculating connectivity matrix for W")
+		connW = cmatrix.calcConnectivityW(nmf.W)
+		print("Calculating connectivity matrix for H")
+		connH = cmatrix.calcConnectivityH(nmf.H)
+		print("\nAdding connectivity matrix to consensus")
+		cmatrix.addConnectivityMatrixtoConsensusMatrix(connW, connH)
+	
 	print("\nError for rank %d is %f" % (rank, error))
 
 	print("\nMaking consensus matrix")
-	consMat.calcAvConsMat()
+	cmatrix.finalizeConsensusMatrix()
 
 	print("\nReordering connectivity matrix W")
-	cmW = consMat.reorderConsensusMatrix(consMat.consMatW)
+	cmW = cmatrix.reorderConsensusMatrix(cmatrix.cmW)
 	print("Reordering connectivity matrix H")
-	cmH = consMat.reorderConsensusMatrix(consMat.consMatH)
+	cmH = cmatrix.reorderConsensusMatrix(cmatrix.cmH)
 
-	plt.subplot(211)
+	plt.subplot(221)
 	plt.imshow(cmW, cmap='hot', interpolation='nearest')
 	plt.title('Consensus matrix for W')
 	plt.colorbar()
-	plt.subplot(212)
+
+	plt.subplot(222)
 	plt.imshow(cmH, cmap='hot', interpolation='nearest')
 	plt.title('Consensus matrix for H')
 	plt.colorbar()
 
-	plt.suptitle("Consensus matrices for rank = %d by Sparse NMF" % (rank), size=16)
+	plt.suptitle("Consensus matrices for rank = %d by NMF" % (rank), size=16)
 
 	savedir = '../consensus-matrices'
 	if not os.path.exists(savedir):
 		os.mkdir(savedir)
 
 	print("\nSaving plots\n")
-
-	plt.savefig(savedir + "/k = %d, beta= %d" % (rank, beta))
+	
+	plt.savefig(savedir + "/k = %d, nm, mod, gg" % (rank))
 	plt.clf()

@@ -44,8 +44,8 @@ mX = 1 - X.isnull()
 mY = 1 - Y.isnull()
 mZ = 1 - Z.isnull()
 
-maxit = 100
-runs = 1000
+maxit = 1
+runs = 1
 rank = 3
 
 W = pd.DataFrame(np.zeros((X.shape[0], rank)), index=list(X.index))
