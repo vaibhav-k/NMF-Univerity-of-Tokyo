@@ -10,12 +10,14 @@ X = pd.read_csv(r'../../inputs/portal-Avana-2018-06-08-n.csv', index_col=0, head
 X = X.fillna(0)
 
 iterations = 10000
-trials = 50
+trials = 15
 
 print("\nNumber of trials = %i" % trials)
 print("Number of iterations in each trial = %i\n" % iterations)
 
-for rank in range (3,4):
+for rank in range (50,66):
+	if(rank%5!=0):
+		continue
 	cmatrix = CMatrix(X)
 
 	error = 0
@@ -62,5 +64,5 @@ for rank in range (3,4):
 
 	print("\nSaving plots\n")
 	
-	plt.savefig(savedir + "/k = %d, nm, mod, gg" % (rank))
+	plt.savefig(savedir + "/k = %d" % (rank))
 	plt.clf()

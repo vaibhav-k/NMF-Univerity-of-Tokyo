@@ -16,7 +16,7 @@ class NMF():
 
 	def update(self):
 		for run in range(self.iterations):
-			print("Update iteration = %i for rank = %i" % (run, self.K))
+			#print("Update iteration = %i for rank = %i" % (run, self.K))
 			self.H = np.multiply(self.H, np.divide(np.dot(self.W.T, self.X), np.dot(self.W.T, np.dot(self.W, self.H) + self.eps)))
 			self.W = np.multiply(self.W, np.divide(np.dot(self.X, self.H.T), (np.dot(np.dot(self.W, self.H), self.H.T) + self.eps)))
 

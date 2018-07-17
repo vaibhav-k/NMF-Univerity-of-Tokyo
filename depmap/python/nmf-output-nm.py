@@ -10,8 +10,8 @@ from fn_reorder import *
 X = pd.read_csv(r'../../inputs/portal-Avana-2018-06-08-n.csv', index_col=0, na_values='NaN')
 mX = 1 - X.isnull()
 
-rank = 3
-iterations = 1
+rank = 50
+iterations = 20000
 
 W = pd.DataFrame(np.zeros((X.shape[0], rank)), index=list(X.index))
 H = pd.DataFrame(np.zeros((rank, X.shape[1])), columns=list(X))
@@ -26,14 +26,16 @@ error = nmf.err
 W = nmf.W
 H = nmf.H
 
-print('Reordering output matrices')
-
+#print('Reordering output matrices')
+W.to_csv('../W50uno.csv')
+H.to_csv('../H50uno.csv')
+'''
 W = reorderMatrixW(W)
 H = reorderMatrixH(H)
 
 print("Error for rank %d is %f" % (rank, error))
-
-
+'''
+'''
 print('Making plots')
 
 plt.figure()
@@ -52,8 +54,8 @@ plt.title('Output matrix for H')
 plt.suptitle("Reordered output matrices for rank = 3", size=16)
 #plt.savefig('test')
 plt.show()
-
 '''
-W.to_csv('../W.csv')
-H.to_csv('../H.csv')
+'''
+W.to_csv('../W55.csv')
+H.to_csv('../H55.csv')
 '''

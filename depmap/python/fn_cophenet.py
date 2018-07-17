@@ -12,11 +12,8 @@ class CophCoeff():
 		self.K = K
 
 	def calcCoph(self):
-		print("Finding pdist")
 		ori_dists = fc.pdist(self.M)
-		print("Doing fast clustering")
-		Z = fastcluster.linkage(ori_dists, method='average')
-		print("Finding cophenetic correlation")
+		Z = fc.linkage(ori_dists, method='average')
 		[coph_corr, coph_dists] = cophenet(Z, ori_dists)
-		print("rank k = %d, cophenetic corr. =  %d" % (self.K, coph_corr))
+		print("rank k = %d, cophenetic corr. =  %f" % (self.K, coph_corr))
 		self.report.append(pd.DataFrame([[self.K,coph_corr]], columns = ["K", "Cophenetic Corr"]), ignore_index=True)
