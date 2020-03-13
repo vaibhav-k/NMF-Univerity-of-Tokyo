@@ -6,4 +6,5 @@ Sparse NMF follows the update rules specified by ***Sparse NMF – half-baked or
 
 I have made the code in this repository available, for use as a library, on https://pypi.org/project/bignmf/.
 
-To install the library,    pip3 install bignmf
+To install the library -
+  pip3 install bignmf
