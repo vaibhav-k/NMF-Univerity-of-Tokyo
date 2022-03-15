@@ -5,7 +5,9 @@ import matplotlib.pyplot as plt
 from fn_SparseNMF import *
 from fn_consensus import *
 
-X = pd.read_csv(r'C:/Users/Vaibhav/nmf/input/portal-Avana-2018-06-08-n.csv', index_col=0, header=0)
+X = pd.read_csv(
+    r"C:/Users/Vaibhav/nmf/input/portal-Avana-2018-06-08-n.csv", index_col=0, header=0
+)
 X = X.fillna(0)
 
 iterations = 100
@@ -19,11 +21,11 @@ error = 0
 consMat = ConsensusMatrix(X)
 
 for run in range(runs):
-	snmf = SparseNMF(X, rank, iterations, beta, sparsity)
-	error += snmf.err
-	connmatW = consMat.calcConnMatW(snmf.W)
-	connmatH = consMat.calcConnMatH(snmf.H)
-	consMat.calcConsMat(connmatW, connmatH)
+    snmf = SparseNMF(X, rank, iterations, beta, sparsity)
+    error += snmf.err
+    connmatW = consMat.calcConnMatW(snmf.W)
+    connmatH = consMat.calcConnMatH(snmf.H)
+    consMat.calcConsMat(connmatW, connmatH)
 
 consMat.calcAvConsMat()
 
@@ -33,12 +35,15 @@ cmW = consMat.reorderConsensusMatrix(consMat.consMatW)
 cmH = consMat.reorderConsensusMatrix(consMat.consMatH)
 
 plt.subplot(211)
-plt.imshow(cmW, cmap='hot', interpolation='nearest')
-plt.title('Consensus matrix for W')
+plt.imshow(cmW, cmap="hot", interpolation="nearest")
+plt.title("Consensus matrix for W")
 plt.colorbar()
 plt.subplot(212)
-plt.imshow(cmH, cmap='hot', interpolation='nearest')
-plt.title('Consensus matrix for H')
+plt.imshow(cmH, cmap="hot", interpolation="nearest")
+plt.title("Consensus matrix for H")
 plt.colorbar()
-#plt.show()
-plt.savefig("C:/Users/Vaibhav/nmf/projects/depmap-sparse/consensus-matrices/k = %d, beta= %d" % (rank, beta))
+# plt.show()
+plt.savefig(
+    "C:/Users/Vaibhav/nmf/projects/depmap-sparse/consensus-matrices/k = %d, beta= %d"
+    % (rank, beta)
+)
